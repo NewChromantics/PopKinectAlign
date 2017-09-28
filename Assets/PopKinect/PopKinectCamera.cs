@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
 
-[System.Serializable]
-public class UnityEvent_Texture : UnityEngine.Events.UnityEvent <Texture> {}
+//[System.Serializable]
+//public class UnityEvent_Texture : UnityEngine.Events.UnityEvent <Texture> {}
 
 public class PopKinectCamera : MonoBehaviour {
 
