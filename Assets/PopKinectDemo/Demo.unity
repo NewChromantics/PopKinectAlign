@@ -255,7 +255,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEvent_Texture, Assembly-CSharp, Version=1.0.6480.37194, Culture=neutral,
+    m_TypeName: UnityEvent_Texture, Assembly-CSharp, Version=1.0.6481.22419, Culture=neutral,
       PublicKeyToken=null
   EnableDepth: 1
   OnDepthTextureChanged:
@@ -272,7 +272,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEvent_Texture, Assembly-CSharp, Version=1.0.6480.37194, Culture=neutral,
+    m_TypeName: UnityEvent_Texture, Assembly-CSharp, Version=1.0.6481.22419, Culture=neutral,
       PublicKeyToken=null
 --- !u!4 &84641053
 Transform:
@@ -672,7 +672,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEvent_Texture, Assembly-CSharp, Version=1.0.6480.37194, Culture=neutral,
+    m_TypeName: UnityEvent_Texture, Assembly-CSharp, Version=1.0.6481.22419, Culture=neutral,
       PublicKeyToken=null
   CircleMaterial: {fileID: 2100000, guid: c75347abed07247908c4a78dd58f90df, type: 2}
   CircleMaterial_CircleArrayUniform: Circles
@@ -706,7 +706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1585887996
 RectTransform:
   m_ObjectHideFlags: 0
@@ -720,10 +720,10 @@ RectTransform:
   m_Father: {fileID: 320021668}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 205.5, y: -328}
-  m_SizeDelta: {x: 391, y: 636}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1585887997
 MonoBehaviour:
@@ -736,7 +736,7 @@ MonoBehaviour:
   m_Script: {fileID: -98529514, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 83c4ea94011b54c8694c1afa2c0457ed, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:

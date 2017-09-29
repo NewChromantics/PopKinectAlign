@@ -1,16 +1,9 @@
-﻿Shader "PopKinect/Circle Filter"
+﻿Shader "PopKinect/Black and white"
 {
 	Properties
 	{
 		_MainTex ("Texture", 2D) = "white" {}
 		BlackMax("BlackMax", Range(0,0.5) ) = 0.4
-		Radius0("Radius0", Range(1,50) ) = 5
-		Radius1("Radius1", Range(1,50) ) = 10
-		Radius2("Radius2", Range(1,50) ) = 15
-		Radius3("Radius3", Range(1,50) ) = 20
-		Radius4("Radius4", Range(1,50) ) = 25
-		MinWhiteScore("MinWhiteScore", Range(0,1) ) = 0.5
-		MinBlackScore("MinBlackScore", Range(0,1) ) = 0.5
 		InvertColourMatch("InvertColourMatch", Range(0,1) ) = 0
 	}
 	SubShader
@@ -138,79 +131,11 @@
 			fixed4 frag (v2f i) : SV_Target
 			{
 				float2 uv = i.uv;
-				float4 BadScore = tex2D(_MainTex, uv);
 
-				float Radiuses[RADIUS_COUNT];
-				Radiuses[0] = Radius0;
-				Radiuses[1] = Radius1;
-				Radiuses[2] = Radius2;
-				Radiuses[3] = Radius3;
-				Radiuses[4] = Radius4;
-				float BlackScores[RADIUS_COUNT];
-				BlackScores[1] = GetBlackScore( uv, Radius1 );
-				BlackScores[2] = GetBlackScore( uv, Radius2 );
-				BlackScores[3] = GetBlackScore( uv, Radius3 );
-				BlackScores[4] = GetBlackScore( uv, Radius4 );
-
-				for ( int r=0;	r<RADIUS_COUNT;	r++ )
-				{
-					BlackScores[r] = GetBlackScore( uv, Radiuses[r] );
-				}
-
-				float BestScore = 0;
-				float ScorePairs[RADIUS_COUNT*RADIUS_COUNT];
-				float BestOuterRadius = 0;
-
-				/*
-				for ( int i=0;	i<RADIUS_COUNT-1;	i++ )
-				{
-					for ( int o=i+1;	o<RADIUS_COUNT;	o++ )
-					{
-						float ThisScore = GetTotalScore( BlackScores[i], BlackScores[o] );
-						ScorePairs[ScoreCount] = ThisScore;
-						if ( ThisScore > BestScore )
-						{
-							BestScore = ThisScore;
-							BestOuterRadius = Radiuses[o];
-						}
-					}
-				}
-				*/
-
-				//	all smaller-radii should succeed
-				for ( int o=1;	o<RADIUS_COUNT;	o++ )
-				{
-					float InnerScore = 1;
-					for ( int i=0;	i<o;	i++ )
-					{
-						InnerScore = min( InnerScore, GetTotalScore( BlackScores[i], BlackScores[o] ) );
-					}
-
-					float ThisScore = InnerScore;
-					if ( ThisScore > BestScore )
-					{
-						BestScore = ThisScore;
-						BestOuterRadius = Radiuses[o];
-					}
-				}
-					
-
-
-
-				#if defined(DATA_OUTPUT)
-				float3 rgb = 0;
-				rgb.y = BestScore;
-				rgb.z = BestOuterRadius;
-				#else
-
-				if ( BestScore == 0 )
-					return BadScore;
-
-				float3 rgb = NormalToRedGreen(BestScore);
-
-				#endif
-
-				return float4( rgb, 1 );
+				if ( IsBlack(uv) )
+					return float4(0,0,0,1);
+				else
+					return float4(1,1,1,1);
 			}
 			ENDCG
 		}
