@@ -3,12 +3,27 @@
 	Properties
 	{
 		_MainTex ("Texture", 2D) = "white" {}
+		OriginalTexture ("OriginalTexture", 2D) = "white" {}
 		BlackMax("BlackMax", Range(0,0.5) ) = 0.4
 		Radius0("Radius0", Range(1,50) ) = 5
 		Radius1("Radius1", Range(1,50) ) = 10
 		Radius2("Radius2", Range(1,50) ) = 15
 		Radius3("Radius3", Range(1,50) ) = 20
 		Radius4("Radius4", Range(1,50) ) = 25
+		Radius5("Radius5", Range(1,50) ) = 35
+		Radius6("Radius6", Range(1,50) ) = 45
+		Radius7("Radius7", Range(1,50) ) = 55
+
+		RefineRadiusMult0("RefineRadiusMult0", Range(0,2) ) = 0.5
+		RefineRadiusMult1("RefineRadiusMult1", Range(0,2) ) = 0.80
+		RefineRadiusMult2("RefineRadiusMult2", Range(0,2) ) = 0.85
+		RefineRadiusMult3("RefineRadiusMult3", Range(0,2) ) = 0.95
+		RefineRadiusMult4("RefineRadiusMult4", Range(0,2) ) = 1.0
+		RefineRadiusMult5("RefineRadiusMult5", Range(0,2) ) = 1.1
+		RefineRadiusMult6("RefineRadiusMult6", Range(0,2) ) = 1.2
+		RefineRadiusMult7("RefineRadiusMult7", Range(0,2) ) = 1.3
+	
+
 		MinWhiteScore("MinWhiteScore", Range(0,1) ) = 0.5
 		MinBlackScore("MinBlackScore", Range(0,1) ) = 0.5
 		InvertColourMatch("InvertColourMatch", Range(0,1) ) = 0
@@ -45,6 +60,7 @@
 			};
 
 			sampler2D _MainTex;
+			sampler2D OriginalTexture;
 			float4 _MainTex_ST;
 			float4 _MainTex_TexelSize;
 
@@ -55,12 +71,29 @@
 			float MinWhiteScore;
 			float MinBlackScore;
 
-			#define RADIUS_COUNT	5
+			#define RADIUS_COUNT	8
 			float Radius0;
 			float Radius1;
 			float Radius2;
 			float Radius3;
 			float Radius4;
+			float Radius5;
+			float Radius6;
+			float Radius7;
+
+			float RefineRadiusMult0;
+			float RefineRadiusMult1;
+			float RefineRadiusMult2;
+			float RefineRadiusMult3;
+			float RefineRadiusMult4;
+			float RefineRadiusMult5;
+			float RefineRadiusMult6;
+			float RefineRadiusMult7;
+
+
+			#define IS_DATA_BLACK	-1
+			#define IS_DATA_WHITE	-2
+			#define IS_DATA_MAGIC(x)	( x < 0 )
 
 			float InvertColourMatch;
 			#define INVERT_COLOUR_MATCH	( InvertColourMatch > 0.5f )
@@ -78,6 +111,12 @@
 			bool IsBlack(float2 uv)
 			{
 				fixed4 rgb = tex2D(_MainTex, uv);
+
+				if ( rgb.x == IS_DATA_BLACK )
+					return true;
+				else if ( rgb.x == IS_DATA_WHITE )
+					return false;
+
 				float Blackness = max( rgb.x, max( rgb.y, rgb.z ) );
 
 				if ( Blackness > BlackMax )
@@ -139,6 +178,7 @@
 			{
 				float2 uv = i.uv;
 				float4 BadScore = tex2D(_MainTex, uv);
+				bool UvIsBlack = IsBlack( uv );
 
 				float Radiuses[RADIUS_COUNT];
 				Radiuses[0] = Radius0;
@@ -146,12 +186,29 @@
 				Radiuses[2] = Radius2;
 				Radiuses[3] = Radius3;
 				Radiuses[4] = Radius4;
-				float BlackScores[RADIUS_COUNT];
-				BlackScores[1] = GetBlackScore( uv, Radius1 );
-				BlackScores[2] = GetBlackScore( uv, Radius2 );
-				BlackScores[3] = GetBlackScore( uv, Radius3 );
-				BlackScores[4] = GetBlackScore( uv, Radius4 );
+				Radiuses[5] = Radius5;
+				Radiuses[6] = Radius6;
+				Radiuses[7] = Radius7;
 
+				//	check for refining data mode
+				#if defined(DATA_OUTPUT)
+				if ( IS_DATA_MAGIC(BadScore.x) )
+				{
+					float LooseRadius = BadScore.z;
+					Radiuses[7] = LooseRadius * RefineRadiusMult7;
+					Radiuses[6] = LooseRadius * RefineRadiusMult6;
+					Radiuses[5] = LooseRadius * RefineRadiusMult5;
+					Radiuses[4] = LooseRadius * RefineRadiusMult4;
+					Radiuses[3] = LooseRadius * RefineRadiusMult3;
+					Radiuses[2] = LooseRadius * RefineRadiusMult2;
+					Radiuses[1] = LooseRadius * RefineRadiusMult1;
+					Radiuses[0] = LooseRadius * RefineRadiusMult0;
+				}
+				#endif
+
+
+
+				float BlackScores[RADIUS_COUNT];
 				for ( int r=0;	r<RADIUS_COUNT;	r++ )
 				{
 					BlackScores[r] = GetBlackScore( uv, Radiuses[r] );
@@ -180,13 +237,19 @@
 				//	all smaller-radii should succeed
 				for ( int o=1;	o<RADIUS_COUNT;	o++ )
 				{
-					float InnerScore = 1;
+					float BestInnerScore = 0;
+					float WorstInnerScore = 1;
+					float AverageInnerScore = 0;
 					for ( int i=0;	i<o;	i++ )
 					{
-						InnerScore = min( InnerScore, GetTotalScore( BlackScores[i], BlackScores[o] ) );
+						float InnerScore = GetTotalScore( BlackScores[i], BlackScores[o] );
+						BestInnerScore = max( BestInnerScore, InnerScore );
+						WorstInnerScore = min( WorstInnerScore, InnerScore );
+						AverageInnerScore += InnerScore;
 					}
+					AverageInnerScore /= (float)o;
 
-					float ThisScore = InnerScore;
+					float ThisScore = BestInnerScore;
 					if ( ThisScore > BestScore )
 					{
 						BestScore = ThisScore;
@@ -199,6 +262,7 @@
 
 				#if defined(DATA_OUTPUT)
 				float3 rgb = 0;
+				rgb.x = UvIsBlack ? IS_DATA_BLACK : IS_DATA_WHITE;
 				rgb.y = BestScore;
 				rgb.z = BestOuterRadius;
 				#else

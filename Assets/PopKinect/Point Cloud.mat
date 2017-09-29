@@ -18,6 +18,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - BeeAtlas:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - ColourTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -26,5 +30,24 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Floats: []
+    m_Floats:
+    - AtlasSectionScale: 1
+    - BeeScale: 0.049
+    - Billboard: 1
+    - ClipInsideCameraRadius: 0.5
+    - ClipRadius: 0.235
+    - ColourFieldOfViewHorizontal: 58.5
+    - ColourFieldOfViewVertical: 45.6
+    - ColourMult: 1
+    - ColourSquaredFactor: 0
+    - Debug_ClipRadius: 0
+    - Debug_TriangleUv: 0
+    - DepthDistanceMax: 5
+    - DepthDistanceMin: 0
+    - DepthValueMax: 2047
+    - FogStrength: 1
+    - ForceAtlasIndex: -1
+    - MinDistanceFromCamera: 0
+    - MinScreenSize: 0
+    - RandomAtlas: 0
     m_Colors: []

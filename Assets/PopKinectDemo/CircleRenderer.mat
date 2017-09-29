@@ -24,7 +24,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - RadiusScale: 1
-    - RingThickness: 0.123
+    - RefineRadiusMult0: 0.38
+    - RefineRadiusMult1: 0.6
+    - RefineRadiusMult2: 0.74
+    - RefineRadiusMult3: 0.87
+    - RefineRadiusMult4: 1
+    - RefineRadiusMult5: 1.16
+    - RefineRadiusMult6: 1
+    - RefineRadiusMult7: 1
+    - RingThickness: 0.099
     - ScoreMax: 1
+    - ShowRefineRadiuses: 0
     m_Colors:
     - CircleColour: {r: 1, g: 0, b: 0, a: 1}

@@ -138,7 +138,7 @@
 				float fovvrad = radians( angley * ColourFieldOfViewVertical );
 				dir.y = tan (fovvrad);
 
-				dir.z *= Depth;
+				dir *= Depth;
 
 				float3 WorldPos = mul( UNITY_MATRIX_M, float4(dir,1) );
 				return WorldPos;

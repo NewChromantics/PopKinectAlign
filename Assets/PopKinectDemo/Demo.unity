@@ -255,7 +255,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEvent_Texture, Assembly-CSharp, Version=1.0.6481.32038, Culture=neutral,
+    m_TypeName: UnityEvent_Texture, Assembly-CSharp, Version=1.0.6481.40637, Culture=neutral,
       PublicKeyToken=null
   ColourFieldOfViewHorizontal: 58.5
   ColourFieldOfViewVertical: 45.6
@@ -274,7 +274,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEvent_Texture, Assembly-CSharp, Version=1.0.6481.32038, Culture=neutral,
+    m_TypeName: UnityEvent_Texture, Assembly-CSharp, Version=1.0.6481.40637, Culture=neutral,
       PublicKeyToken=null
 --- !u!4 &84641053
 Transform:
@@ -282,13 +282,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 84641051}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1488861461}
   - {fileID: 631134587}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 1447146442}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &131058256
 GameObject:
@@ -321,7 +322,7 @@ MonoBehaviour:
   TrackCircleIndex: 0
   Extractor: {fileID: 1447146441}
   MinRadius: 1
-  MaxRadius: 100
+  MaxRadius: 39.3
   MinDistance: 0
   MaxDistance: 3
   ControllerHoleRadius: 0.04
@@ -428,7 +429,7 @@ RectTransform:
   - {fileID: 1706582183}
   - {fileID: 1776779789}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -555,7 +556,7 @@ MonoBehaviour:
   TrackCircleIndex: 0
   Extractor: {fileID: 1447146441}
   MinRadius: 1
-  MaxRadius: 100
+  MaxRadius: 39.3
   MinDistance: 0
   MaxDistance: 3
   ControllerHoleRadius: 0.04
@@ -602,7 +603,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 84641053}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &631134588
 MonoBehaviour:
@@ -685,7 +686,7 @@ MonoBehaviour:
   TrackCircleIndex: 0
   Extractor: {fileID: 1447146441}
   MinRadius: 1
-  MaxRadius: 100
+  MaxRadius: 39.3
   MinDistance: 0
   MaxDistance: 3
   ControllerHoleRadius: 0.04
@@ -971,7 +972,7 @@ MonoBehaviour:
   TrackCircleIndex: 0
   Extractor: {fileID: 1447146441}
   MinRadius: 1
-  MaxRadius: 100
+  MaxRadius: 39.3
   MinDistance: 0
   MaxDistance: 3
   ControllerHoleRadius: 0.04
@@ -1155,6 +1156,37 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1154403560}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1197030818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1197030819}
+  m_Layer: 0
+  m_Name: World
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1197030819
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1197030818}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1447146442}
+  - {fileID: 1487734341}
+  - {fileID: 1468091694}
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1399225725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1283,7 +1315,7 @@ MonoBehaviour:
   TrackCircleIndex: 0
   Extractor: {fileID: 1447146441}
   MinRadius: 1
-  MaxRadius: 100
+  MaxRadius: 39.3
   MinDistance: 0
   MaxDistance: 3
   ControllerHoleRadius: 0.04
@@ -1330,11 +1362,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEvent_Texture, Assembly-CSharp, Version=1.0.6481.32038, Culture=neutral,
+    m_TypeName: UnityEvent_Texture, Assembly-CSharp, Version=1.0.6481.40637, Culture=neutral,
       PublicKeyToken=null
   CircleMaterial: {fileID: 2100000, guid: c75347abed07247908c4a78dd58f90df, type: 2}
   CircleMaterial_CircleArrayUniform: Circles
   CircleMaterial_CircleArrayCount: 50
+  RefineIterations: 0
   DrawRays: 1
   KinectCamera: {fileID: 84641052}
 --- !u!4 &1447146442
@@ -1343,14 +1376,96 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1447146440}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.481, y: 0, z: 0.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1488861461}
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  - {fileID: 84641053}
+  m_Father: {fileID: 1197030819}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1468091693
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1468091694}
+  - component: {fileID: 1468091697}
+  - component: {fileID: 1468091696}
+  - component: {fileID: 1468091695}
+  m_Layer: 0
+  m_Name: Floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1468091694
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1468091693}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.434, y: -0.077, z: 1.123}
+  m_LocalScale: {x: 1, y: 0.01, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1197030819}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &1468091695
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1468091693}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: f7b37264e6e9c4d428594d9cc15c4d5e, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!65 &1468091696
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1468091693}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1468091697
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1468091693}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1487734338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1447,7 +1562,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEvent_OpenvrControllerFrames, Assembly-CSharp, Version=1.0.6481.32038,
+    m_TypeName: UnityEvent_OpenvrControllerFrames, Assembly-CSharp, Version=1.0.6481.40637,
+      Culture=neutral, PublicKeyToken=null
+  OnUpdateLighthouses:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEvent_OpenvrLighthouseFrame, Assembly-CSharp, Version=1.0.6481.40637,
       Culture=neutral, PublicKeyToken=null
   TrackingOrigin: 1
   UsePredictedPoses: 1
@@ -1459,7 +1579,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1487734338}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.10181761}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1408962637}
@@ -1468,12 +1588,12 @@ RectTransform:
   - {fileID: 1890140630}
   - {fileID: 553216497}
   - {fileID: 1011888527}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 1197030819}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.35759276, y: 1.3449163}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1488861460
@@ -1500,11 +1620,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1488861460}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.08, z: 0.08}
   m_Children: []
-  m_Father: {fileID: 1447146442}
+  m_Father: {fileID: 84641053}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1488861462
@@ -1856,7 +1976,7 @@ MonoBehaviour:
   TrackCircleIndex: 0
   Extractor: {fileID: 1447146441}
   MinRadius: 1
-  MaxRadius: 100
+  MaxRadius: 39.3
   MinDistance: 0
   MaxDistance: 3
   ControllerHoleRadius: 0.04

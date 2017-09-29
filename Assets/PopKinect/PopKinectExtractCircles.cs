@@ -11,10 +11,13 @@ public class PopKinectExtractCircles : MonoBehaviour {
 	public string				CircleMaterial_CircleArrayUniform = "Circles";
 	public int					CircleMaterial_CircleArrayCount = 50;
 
+	[Range(0,10)]
+	public int 					RefineIterations = 0;
 	public bool					DrawRays = true;
 	public PopKinectCamera		KinectCamera;
 
 	RenderTexture				DataRenderTexture;
+	RenderTexture				DataRenderTexture_Refined;
 	Texture2D					DataTexture2D;
 	List<Vector4>				LastCircles;
 	Vector2						LastCirclesImageSize;
@@ -56,12 +59,26 @@ public class PopKinectExtractCircles : MonoBehaviour {
 
 	public void ExtractCircles(Texture ImageTexture)
 	{
-		if (DataRenderTexture == null)
+		if (DataRenderTexture == null) {
 			DataRenderTexture = new RenderTexture (ImageTexture.width, ImageTexture.height, 0, RenderTextureFormat.ARGBFloat);
+			DataRenderTexture.filterMode = FilterMode.Point;
+		}
 
 		CircleFilter.EnableKeyword (DataOutputKeyword);
 		Graphics.Blit (ImageTexture, DataRenderTexture, CircleFilter);
+
+		for (int i = 0;	i < RefineIterations;	i++) {
+			if (DataRenderTexture_Refined == null) {
+				DataRenderTexture_Refined = new RenderTexture (DataRenderTexture.width, DataRenderTexture.height, 0, DataRenderTexture.format);
+				DataRenderTexture_Refined.filterMode = DataRenderTexture.filterMode;
+			}
+			Graphics.Blit (DataRenderTexture, DataRenderTexture_Refined, CircleFilter);
+			Graphics.Blit (DataRenderTexture_Refined, DataRenderTexture);
+		}
+
 		CircleFilter.DisableKeyword (DataOutputKeyword);
+
+
 
 		SaveTextureToPng.GetTexture2D (DataRenderTexture, ref DataTexture2D, TextureFormat.RGBAFloat);
 		OnDataTextureChanged.Invoke (DataTexture2D);

@@ -7,6 +7,16 @@
 		RadiusScale("RadiusScale", Range(1,10) ) = 1
 		RingThickness("RingThickness", Range(0.01,0.5) ) = 0.3
 		ScoreMax("ScoreMax", Range(1,1000) ) = 10
+
+		RefineRadiusMult0("RefineRadiusMult0", Range(0,2) ) = 0.5
+		RefineRadiusMult1("RefineRadiusMult1", Range(0,2) ) = 0.80
+		RefineRadiusMult2("RefineRadiusMult2", Range(0,2) ) = 0.85
+		RefineRadiusMult3("RefineRadiusMult3", Range(0,2) ) = 0.95
+		RefineRadiusMult4("RefineRadiusMult4", Range(0,2) ) = 1.0
+		RefineRadiusMult5("RefineRadiusMult5", Range(0,2) ) = 1.1
+		RefineRadiusMult6("RefineRadiusMult6", Range(0,2) ) = 1.2
+		RefineRadiusMult7("RefineRadiusMult7", Range(0,2) ) = 1.3
+		ShowRefineRadiuses("ShowRefineRadiuses", Range(0,1) ) = 1
 	}
 	SubShader
 	{
@@ -43,9 +53,20 @@
 			float4 _MainTex_ST;
 			float4 _MainTex_TexelSize;
 			float4 CircleColour;
-			float RadiusScale;
 			float RingThickness;
 			float ScoreMax;
+
+
+			float RefineRadiusMult0;
+			float RefineRadiusMult1;
+			float RefineRadiusMult2;
+			float RefineRadiusMult3;
+			float RefineRadiusMult4;
+			float RefineRadiusMult5;
+			float RefineRadiusMult6;
+			float RefineRadiusMult7;
+			float ShowRefineRadiuses;
+			#define SHOW_REFINE_RADIUSES	( ShowRefineRadiuses > 0.5f )
 
 			v2f vert (appdata v)
 			{
@@ -57,15 +78,35 @@
 				return o;
 			}
 
-			float InsideCircleScore(float2 xy,float4 Circle)
+			bool InRing(float Radius,float Mult,float Distance)
 			{
-				float Distance = distance( Circle.xy, xy );
-				Circle.z *= RadiusScale;
-
-				float Outer = Circle.z;
+				
+				float Outer = Radius * Mult;
 				float Inner = Outer * (1-RingThickness);
 
 				if (  (Distance <= Outer) && (Distance>=Inner) )
+					return true;
+				return false;
+			}
+
+			float InsideCircleScore(float2 xy,float4 Circle)
+			{
+				float Distance = distance( Circle.xy, xy );
+
+				int Render = 0;
+				Render += InRing( Circle.z, 1, Distance );
+				if ( SHOW_REFINE_RADIUSES )
+				{
+					Render += InRing( Circle.z, RefineRadiusMult0, Distance );
+					Render += InRing( Circle.z, RefineRadiusMult1, Distance );
+					Render += InRing( Circle.z, RefineRadiusMult2, Distance );
+					Render += InRing( Circle.z, RefineRadiusMult3, Distance );
+					Render += InRing( Circle.z, RefineRadiusMult4, Distance );
+					Render += InRing( Circle.z, RefineRadiusMult5, Distance );
+					Render += InRing( Circle.z, RefineRadiusMult6, Distance );
+					Render += InRing( Circle.z, RefineRadiusMult7, Distance );
+				}
+				if ( Render > 0 )
 					return Circle.w;
 				return 0;
 			}

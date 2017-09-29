@@ -18,21 +18,36 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - OriginalTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - BlackMax: 0.5
+    - BlackMax: 0.4
     - InvertColourMatch: 0
-    - MinBlackScore: 0.91
+    - MinBlackScore: 1
     - MinScore: 0
-    - MinWhiteScore: 0.982
-    - Radius0: 6.5
-    - Radius1: 13.1
-    - Radius2: 20
-    - Radius3: 27.6
-    - Radius4: 35.9
+    - MinWhiteScore: 0.974
+    - Radius0: 2.5
+    - Radius1: 6.9
+    - Radius2: 9.7
+    - Radius3: 14.4
+    - Radius4: 16.9
+    - Radius5: 22.3
+    - Radius6: 32
+    - Radius7: 50
+    - RefineRadiusMult0: 0.38
+    - RefineRadiusMult1: 0.68
+    - RefineRadiusMult2: 0.74
+    - RefineRadiusMult3: 0.81
+    - RefineRadiusMult4: 0.91
+    - RefineRadiusMult5: 0.98
+    - RefineRadiusMult6: 1.06
+    - RefineRadiusMult7: 1.09
     - ScanPixelCount: 10
     - ScanPixelStep: 1
     m_Colors: []

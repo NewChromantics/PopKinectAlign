@@ -50,7 +50,7 @@ public class ControllerAligner : MonoBehaviour {
 	void OnDrawGizmos()
 	{
 		Gizmos.color = Color.yellow;
-		Gizmos.matrix = this.Extractor.transform.localToWorldMatrix;
+		Gizmos.matrix = Matrix4x4.identity;
 
 		var Circles = Extractor.GetCirclesInUvSpace ();
 
@@ -71,8 +71,7 @@ public class ControllerAligner : MonoBehaviour {
 
 		//	place camera from our controller along the ray, backwards
 		var DeltaFromCamera = Ray.GetPoint (Distance);
-		return DeltaFromCamera;
-		var CameraPosition = this.transform.localPosition - DeltaFromCamera;
+		var CameraPosition = this.transform.position - DeltaFromCamera;
 		return CameraPosition;
 	}
 
