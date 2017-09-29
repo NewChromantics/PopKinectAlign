@@ -25,7 +25,9 @@
 			#pragma fragment frag
 			// make fog work
 			#pragma multi_compile_fog
-			
+
+			#pragma multi_compile __ DATA_OUTPUT
+
 			#include "UnityCG.cginc"
 			#include "../PopUnityCommon/PopCommon.cginc"
 
@@ -48,7 +50,7 @@
 
 			float BlackMax;
 
-			#define SampleCount	20
+			#define SampleCount	30
 
 			float MinWhiteScore;
 			float MinBlackScore;
@@ -129,7 +131,7 @@
 				
 				float Score = (InnerScore + OuterScore);
 				float MinScore = (MinWhiteScore + MinBlackScore);
-				Score = Range( MinScore, 2, Score );
+				Score = Range( MinScore, 1+1, Score );
 				return Score;
 			}
 
@@ -158,20 +160,36 @@
 				float BestScore = 0;
 				float ScorePairs[RADIUS_COUNT*RADIUS_COUNT];
 				int ScoreCount = 0;
+				float BestOuterRadius = 0;
 				for ( int i=0;	i<RADIUS_COUNT-1;	i++ )
 				{
 					for ( int o=i+1;	o<RADIUS_COUNT;	o++ )
 					{
-						ScorePairs[ScoreCount] = GetTotalScore( BlackScores[i], BlackScores[o] );
-						BestScore = max( BestScore, ScorePairs[ScoreCount] );
+						float ThisScore = GetTotalScore( BlackScores[i], BlackScores[o] );
+						ScorePairs[ScoreCount] = ThisScore;
+						if ( ThisScore > BestScore )
+						{
+							BestScore = ThisScore;
+							BestOuterRadius = Radiuses[o];
+						}
 						ScoreCount++;
 					}
 				}
 
-				if ( BestScore < 0.01f )
+				#if defined(DATA_OUTPUT)
+				float3 rgb = 0;
+				rgb.y = BestScore;
+				rgb.z = BestOuterRadius;
+				#else
+
+				if ( BestScore == 0 )
 					return BadScore;
 
-				return float4( NormalToRedGreen(BestScore), 1 );
+				float3 rgb = NormalToRedGreen(BestScore);
+
+				#endif
+
+				return float4( rgb, 1 );
 			}
 			ENDCG
 		}
