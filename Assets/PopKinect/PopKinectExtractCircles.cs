@@ -11,8 +11,13 @@ public class PopKinectExtractCircles : MonoBehaviour {
 	public string				CircleMaterial_CircleArrayUniform = "Circles";
 	public int					CircleMaterial_CircleArrayCount = 50;
 
+	public bool					DrawRays = true;
+	public PopKinectCamera		KinectCamera;
+
 	RenderTexture				DataRenderTexture;
 	Texture2D					DataTexture2D;
+	List<Vector4>				LastCircles;
+	Vector2						LastCirclesImageSize;
 
 	public void ExtractCircles(Texture ImageTexture)
 	{
@@ -33,7 +38,8 @@ public class PopKinectExtractCircles : MonoBehaviour {
 		while (Circles.Count < CircleMaterial_CircleArrayCount)
 			Circles.Add (Vector4.zero);
 		CircleMaterial.SetVectorArray (CircleMaterial_CircleArrayUniform, Circles);
-
+		LastCircles = Circles;
+		LastCirclesImageSize = new Vector2 (DataTexture2D.width, DataTexture2D.height);
 	}
 
 	List<Vector4> ExtractCircles(Color[] Pixels,int ImageWidth)
@@ -66,8 +72,8 @@ public class PopKinectExtractCircles : MonoBehaviour {
 
 		//	left edge
 		Delta.Normalize();
-		var Left = Old2 + (Delta * Old.z);
-		var Right = New2 - (Delta * New.z);
+		var Left = Old2 - (Delta * Old.z);
+		var Right = New2 + (Delta * New.z);
 		var Center = Vector2.Lerp (Left, Right, 0.5f);
 		var Radius = (Right - Left).magnitude / 2;
 		Old.x = Center.x;
@@ -97,4 +103,22 @@ public class PopKinectExtractCircles : MonoBehaviour {
 
 	}
 
+	void OnDrawGizmos()
+	{
+		if (!DrawRays)
+			return;
+		if (!KinectCamera)
+			return;
+		if (LastCircles == null)
+			return;
+
+		Gizmos.color = Color.green;
+		Gizmos.matrix = this.transform.localToWorldMatrix;
+		foreach (var circle in LastCircles) {
+			var u = circle.x / LastCirclesImageSize.x;
+			var v = circle.y / LastCirclesImageSize.y;
+			var ray = KinectCamera.GetColourRay (new Vector2 (u, v));
+			Gizmos.DrawRay (ray);
+		}
+	}
 }

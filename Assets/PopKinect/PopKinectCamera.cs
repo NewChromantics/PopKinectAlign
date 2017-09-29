@@ -48,6 +48,7 @@ public class PopKinectCamera : MonoBehaviour {
 	[Range(0,15)]
 	public int	DeviceIndex = 0;
 
+
 	public bool					EnableMotor = false;
 	public bool					EnableAudio = false;
 	bool						EnableCamera	{	get{ return EnableColour || EnableDepth; }}
@@ -56,6 +57,10 @@ public class PopKinectCamera : MonoBehaviour {
 	public UnityEvent_Texture	OnColourTextureChanged;
 	Texture2D					ColourTexture;
 	TPendingFrame				ColourFrame;		//	locked frame updated from kinect thread
+	[Range(0,180)]
+	public float				ColourFieldOfViewHorizontal = 58.5f;
+	[Range(0,180)]
+	public float				ColourFieldOfViewVertical = 45.6f;
 
 	public bool					EnableDepth = true;
 	public UnityEvent_Texture	OnDepthTextureChanged;
@@ -136,6 +141,7 @@ public class PopKinectCamera : MonoBehaviour {
 
 	void Awake()
 	{
+		var ctx = freenect.KinectNative.Context;
 		freenect.Kinect.LogLevel = freenect.LoggingLevel.Debug;
 		freenect.Kinect.Log += (device,logevent) =>{	Debug.Log(logevent.Message);};
 	}
@@ -241,7 +247,7 @@ public class PopKinectCamera : MonoBehaviour {
 	void ThreadUpdate()
 	{
 		while ( Device != null ) {
-			Debug.Log ("freenect.Kinect.ProcessEvents ()");
+			//Debug.Log ("freenect.Kinect.ProcessEvents ()");
 			Device.UpdateStatus();
 			freenect.Kinect.ProcessEvents ();
 		}
@@ -267,11 +273,8 @@ public class PopKinectCamera : MonoBehaviour {
 					Texture = new Texture2D( Frame.Width, Frame.Height, Format, false );
 				}
 					
-				Debug.Log("Updating texture: " + Frame.Pixels[500] );
-
 				Texture.LoadRawTextureData( Frame.Pixels );
 				Texture.Apply();
-				//Texture.SetPixels32( Frame.Pixels as C
 				Frame.Dirty = false;
 
 				OnChanged.Invoke( Texture );
@@ -319,5 +322,23 @@ public class PopKinectCamera : MonoBehaviour {
 			}
 		}
 */
+	}
+
+	public Ray GetColourRay(Vector2 uv)
+	{
+		var ray = new Ray (Vector3.zero, Vector3.forward);
+		var dir = ray.direction;
+
+		var anglex = (uv.x - 0.5f) * 2.0f;
+		var fovhrad = Mathf.Deg2Rad * ( anglex * ColourFieldOfViewHorizontal );
+		dir.x = Mathf.Tan (fovhrad);
+
+		var angley = ( (1-uv.y) - 0.5f) * 2.0f;
+		var fovvrad = Mathf.Deg2Rad * ( angley * ColourFieldOfViewVertical );
+		dir.y = Mathf.Tan (fovvrad);
+
+		ray.direction = dir;
+			
+		return ray;
 	}
 }

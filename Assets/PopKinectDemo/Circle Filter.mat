@@ -25,14 +25,14 @@ Material:
     m_Floats:
     - BlackMax: 0.5
     - InvertColourMatch: 0
-    - MinBlackScore: 0.928
+    - MinBlackScore: 0.946
     - MinScore: 0
-    - MinWhiteScore: 0.916
-    - Radius0: 3
-    - Radius1: 10.2
-    - Radius2: 18.8
-    - Radius3: 31.7
-    - Radius4: 40.3
+    - MinWhiteScore: 0.904
+    - Radius0: 6.5
+    - Radius1: 13.1
+    - Radius2: 20
+    - Radius3: 27.6
+    - Radius4: 35.9
     - ScanPixelCount: 10
     - ScanPixelStep: 1
     m_Colors: []
