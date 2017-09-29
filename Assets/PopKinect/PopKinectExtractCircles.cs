@@ -19,6 +19,41 @@ public class PopKinectExtractCircles : MonoBehaviour {
 	List<Vector4>				LastCircles;
 	Vector2						LastCirclesImageSize;
 
+	public Vector4?				GetBestCircleInUvSpace()
+	{
+		try
+		{
+			var Circle = LastCircles[0];
+			Circle.x /= LastCirclesImageSize.x;
+			Circle.y /= LastCirclesImageSize.y;
+			return Circle;
+		}
+		catch(System.Exception e)
+		{
+			return null;
+		}
+	}
+
+	public List<Vector4>			GetCirclesInUvSpace()
+	{
+		var Circles = new List<Vector4>();
+
+		try
+		{
+			foreach ( var Circlexy in LastCircles )
+			{
+				var Circle = Circlexy;
+				Circle.x /= LastCirclesImageSize.x;
+				Circle.y /= LastCirclesImageSize.y;
+				Circles.Add( Circle);
+			}
+		}
+		catch(System.Exception e)
+		{
+		}
+		return Circles;
+	}
+
 	public void ExtractCircles(Texture ImageTexture)
 	{
 		if (DataRenderTexture == null)
@@ -56,6 +91,11 @@ public class PopKinectExtractCircles : MonoBehaviour {
 			if (Circles.Count >= CircleMaterial_CircleArrayCount)
 				break;
 		}
+
+		Circles.Sort ((a, b) => {
+			return (a.w > b.w) ? -1 : (a.w == b.w) ? 0 : 1;
+		});
+
 		return Circles;
 	}
 
